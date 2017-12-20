@@ -1,6 +1,136 @@
 # Change Log
 
-### 2.0.3 (Latest Release / Stable)
+### 3.0.0 (Latest / Stable)
+
+This is a major milestone release which was driven and lead by @auhlig and @dhague. Special thanks for their major contributions and making this release possible.
+
+As a result we have added 2.0-maintenance branch which is the path to EOL for OpenStack4j 2.0.X series.
+
+##### Breaking Changes
+
+* Java 8 as minimum - therefore dropping support for Jersey2-jdk16 connector
+* Upgraded Jackson to 2.7.3
+* SLF4j 1.7.21 as sole logging implementation
+
+##### Misc
+* Introduced Groovy tests written in Groovy using Betamax to record and replay client-server communication
+* Clean split of the implementation by Identity version:
+* Package names reflect different  versions (*.identity.v2.* and *.identity.v3.* )
+* Instead of the old version-mixed OSClient a OSClientV2 for only Identity V2 API and OSClientV3 for only Identity V3 API are available
+* Same refactoring for the OSClientSession: introducing new OSClientSessionV2 and OSClientV3
+
+### 2.20
+
+This marks the last of the 2.X OpenStack4j versioning scheme.  Going forward only critical or specific pull requests will justify future release.  It is strongly encourage to consider moving to OpenStack4j 3.0.X which offers the full Identity V3 Support.
+
+### 2.0.9
+
+##### Enhancements/Improvements
+
+* Issue #503 - domain scoped authentication with tests - Thank you - @auhlig  
+
+##### Fixes
+
+* Issue #454 - Tenant and user id not in Volume - Thank you - @iviireczech 
+
+
+
+### 2.0.8
+
+##### Enhancements/Improvements
+
+* Issue #492 - Telemetry Events API - Thank you - @iviireczech  
+* Issue #500 - Use Enums instead of String for sourceType and destinationType in block mappings
+
+##### Fixes
+
+* Issue #489 - Race Condition in DefaultEndpointURLResolver - Thank you - @rvesselinov
+* Issue #501 - Avoid using printStackTrace() for exception logging
+
+### 2.0.7 
+
+##### Enhancements/Improvements
+
+* Issue #479 - Support for Identity V3 - Thank you - @auhlig 
+* Issue #474 - NetQuotaService does not accept/return security_group and security_group_rule quota - Thank you @abareghi
+* Issue #390 - Support for newest Service Versions
+
+##### Fixes
+
+* Issue #485 - Not returning sub-directories under a directory in Swift - Thank you - @sbcd90
+* Issue #470 - Create (boot) server call fails against DevStack due to optional parameters in JSON payload in the request 
+* Issue #458 - java.lang.NullPointerException when getting servers list - Thank you @symcssn 
+* Issue #448 - RACKSPACE: Unable to Find Supported Services
+
+### 2.0.6
+
+##### Enhancements/Improvements
+
+* Issue #450 - Make configDrive() accessible from Server Create builder - Thank you - @imclem 
+
+##### Fixes
+
+* Issue #459 - NPE from keystone v3 re-auths - Thank you - @symcssn 
+* Issue #446 - DLPayload does not return proper response to allow proper handling - Thank you @symcssn 
+* Issue #444 - OSAuthenticator.authenticateV3 does not reauthenticate properly - Thank you @symcssn 
+
+### 2.0.5 
+
+##### Enhancements/Improvements
+
+* Issue #439 - Add query parameters to delete and put options for large objects - Thank you - @frsyuki
+* Issue #438 - Add support for RAX API key authentication extension - Thank you - @frsyuki
+* Issue #437 - Add support to list available zone list - Thank you - @csm1sh
+* Issue #436 - New commands for blockVolume - Thank you - @pompinis
+* Issue #431 - Added docker container format - Thank you - @maseev
+
+##### Fixes
+
+* Issue #424 - Create server error through blockDeviceMappingBuilder
+* Issue #410 - Create instance boot from image（create a new volume）
+
+### 2.0.4
+
+##### Enhancements/Improvements
+
+* Issue #392 - Allow HttpClient interceptor to allow for custom configuration prior to client creation
+* Issue #366 - Identity v3 scoped auth token
+* Issue #358 - Create OSClient from auth_token
+* Issue #352 - Ability to set Proxy information within OpenStack4j Config
+* Issue #350 - Add support to determine if Ceilometer is installed
+* Issue #349 - Update LBaaS to use Enums instead of String values
+* Issue #348 - Neutron (FwaaS) Firewall Policy API & Test Cases (Completed API)
+* Issue #343 - Add filter support when listing Volume and Volume Snapshot
+* Issue #340 - Support for Network Extension: Firewall As a Service (FwaaS)
+* Issue #337 - Enhancement Request: ability to fetch ALL metadata for objects/containers
+* Issue #332 - Refactor HttpClient Connector to use singleton of the Apache HttpClient 
+
+##### Fixes
+
+* Issue #420 - Bug fix for the get_files. The key should be the file name
+* Issue #418 - Bugs regarding updating object metadata
+* Issue #414 - FlavorServiceImpl.listExtraSpecs NullPointerException
+* Issue #413 - ObjectStorageObjectServiceImpl.get(ObjectLocation) throws NPE 
+* Issue #412 - httpclient connector leaks connections on failed authentication attempts and eventually hangs
+* Issue #411 - [Partial Fix] Connection leak from usage of BaseOpenStackService.Invocation.executeWithResponse()
+* Issue #403 - The KeystoneServiceEndpoint miss @JsonRootName("endpoint")
+* Issue #401 - NullPointerException from listing operation and authentication operation
+* Issue #397 - FloatingIPServiceImpl.create don't need floatingIp.getPortId()
+* Issue #394 - HttpClient connection leak when processing Server Errors
+* Issue #393 - The FlavorServiceImpl.removeTenantAccess method error
+* Issue #391 - FlavorServiceImpl.getSpec /flavors/%s/os-extra_specs/%s/ uri error
+* Issue #376 - Deserialization error with HttpURL connector 
+* Issue #373 - Connection leak when using HttpClient connector
+* Issue #365 - Compute: Add/Remove SecGroup 500 exception not caught.
+* Issue #360 - Connection leak when using HttpClient connector
+* Issue #357 - ObjectService.list(containerDoesNotExist) throws NullPointerException
+* Issue #356 - Requests to Swift hang after 2nd request
+* Issue #336 - Exception when deleting an unexisting Glance image
+* Issue #333 - Default value set to 0 for NetSecurityGroupRules : port range
+* Issue #327 - SwiftAccount account = os.objectStorage().account().get()
+* Issue #314 - EofSensorInputStream throws JsonParseException for 404s. Also, inconsistent behavior of how 404s are handled
+
+### 2.0.3
 
 ##### Enhancements/Improvements
 

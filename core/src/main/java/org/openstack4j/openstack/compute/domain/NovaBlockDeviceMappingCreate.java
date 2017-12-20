@@ -1,27 +1,26 @@
 package org.openstack4j.openstack.compute.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.openstack4j.model.compute.BDMDestType;
+import org.openstack4j.model.compute.BDMSourceType;
 import org.openstack4j.model.compute.BlockDeviceMappingCreate;
 import org.openstack4j.model.compute.builder.BlockDeviceMappingBuilder;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author jaroslav.sovicka@oracle.com
  */
 public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
-//    {
-//                "device_name": "/dev/sda1",
-//                "source_type": "volume",
-//                "destination_type": "volume",
-//                "uuid": "fake-volume-id-1",
-//                "boot_index": "0"
-//            }
 
 	public String device_name;
-	public String source_type = "volume";
-	public String destination_type = "volume";
+	public BDMSourceType source_type = BDMSourceType.VOLUME;
+	public BDMDestType destination_type = BDMDestType.VOLUME;
 	public String uuid;
-	public String boot_index;
+	public Integer boot_index;
+	public Integer volume_size;
 	public boolean delete_on_termination = false;
 
 	@JsonProperty("snapshot_id")
@@ -29,6 +28,14 @@ public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
 
 	@JsonProperty("volume_id")
 	public String volumeId;
+
+    @JsonInclude(Include.NON_NULL)
+    @JsonProperty("disk_bus")
+    public String diskBus;
+
+    @JsonInclude(Include.NON_NULL)
+    @JsonProperty("device_type")
+    public String deviceType;
 
 	public static NovaBlockDeviceMappingBuilder builder() {
 		return new NovaBlockDeviceMappingBuilder(new NovaBlockDeviceMappingCreate());
@@ -62,18 +69,18 @@ public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
 
 		@Override
 		public BlockDeviceMappingBuilder bootIndex(int i) {
-			create.boot_index = String.valueOf(i);
+			create.boot_index = i;
 			return this;
 		}
 
 		@Override
-		public BlockDeviceMappingBuilder sourceType(String type){
+		public BlockDeviceMappingBuilder sourceType(BDMSourceType type){
 			create.source_type = type;
 			return this;
 		}
 
 		@Override
-		public BlockDeviceMappingBuilder destinationType(String type){
+		public BlockDeviceMappingBuilder destinationType(BDMDestType type){
 			create.destination_type = type;
 			return this;
 		}
@@ -95,14 +102,29 @@ public class NovaBlockDeviceMappingCreate implements BlockDeviceMappingCreate {
 		    create.volumeId = volumeId;
 		    return this;
 		}
+		
+		@Override
+        public BlockDeviceMappingBuilder volumeSize(Integer volumeSize) {
+            create.volume_size = volumeSize;
+            return this;
+        }
+
+        @Override
+        public BlockDeviceMappingBuilder diskBus(String diskBus) {
+            create.diskBus = diskBus;
+            return this;
+        }
+
+        @Override
+        public BlockDeviceMappingBuilder deviceType(String deviceType) {
+            create.deviceType = deviceType;
+            return this;
+        }
 
 		@Override
 		public BlockDeviceMappingCreate build() {
 			return create;
 		}
-
-
-
 
 		@Override
 		public BlockDeviceMappingBuilder from(BlockDeviceMappingCreate in) {
